@@ -39,6 +39,7 @@
   .post-list {
     margin: 0;
     padding: 0;
+    list-style-type: none;
   }
   
   textarea, input {
@@ -65,14 +66,14 @@
     display: block;
   }
   
-  .wrapper {
+  /* .wrapper {
     width: 100%;
     min-height: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-  }
+  } */
   
   header {
     border-bottom: 1px solid #ccc;
