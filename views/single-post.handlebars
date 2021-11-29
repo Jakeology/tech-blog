@@ -1,5 +1,6 @@
 {{> post-info post}}
 
+{{> comments post.comments}}
 {{#if loggedIn}}
   <form class="comment-form">
     <div>
@@ -7,12 +8,10 @@
     </div>
 
     <div>
-      <button type="submit">add comment</button>
-      <button type="button" class="upvote-btn">upvote</button>
+      <button type="submit" class="btn">add comment</button>
     </div>
   </form>
 {{/if}}
-  {{> comments post.comments}}
 {{#if loggedIn}}
   <script src="/js/comment.js"></script>
   <script src="/js/upvote.js"></script>

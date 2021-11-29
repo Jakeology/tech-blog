@@ -48,11 +48,7 @@ a {
   color: var(--white);
 }
 
-a:hover {
-  color: white;
-}
-
-button {
+.btn {
   background-color: #225ca3;
   border: 0;
   padding: 1%;
@@ -133,11 +129,11 @@ form label {
 
 .comment {
   padding: 1%;
-  margin-bottom: 1%;
+  margin: 1em .5em;
 }
 
 .comment:nth-child(odd) {
-  background-color: #fff5eb;
+  background-color: #eff5ff;
 }
 
 .comment .meta {
@@ -160,5 +156,8 @@ footer {
   justify-content: center;
   padding: 1%;
   font-size: 110%;
+  position: absolute;
+  bottom: 0;
+  width:100%;
 }
 
