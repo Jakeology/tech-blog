@@ -98,6 +98,7 @@ form label {
   border: none;
   padding: 0;
   text-decoration: none;
+  font-weight: normal;
   color: white;
   margin-left: 10px;
 }
