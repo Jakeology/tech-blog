@@ -18,45 +18,44 @@ async function signupFormHandler(event) {
       }),
       headers: { "Content-Type": "application/json" },
     })
-    .then((response) => {
-      if (response.ok) {
-        document.location.replace("/dashboard");
-      }
-      if (response.status === 400) {
+      .then((response) => {
         return response.json();
-      }
-    })
-    .then(function (object) {
-      if (object === undefined) {
-        return;
-      }
-      console.log(object.message);
-      if (object.type === "INVALID_EMAIL") {
-        let instance = tippy(emailInput);
-        instance.setProps({
-          arrow: true,
-          placement: "bottom",
-          content: object.message,
-          trigger: "none",
-          theme: "error",
-        });
-        instance.show();
-      }
-      if (object.type === "INVALID_USER") {
-        let instance = tippy(usernameInput);
-        instance.setProps({
-          arrow: true,
-          placement: "bottom",
-          content: object.message,
-          trigger: "none",
-          theme: "error",
-        });
-        instance.show();
-      }
-    })
-    .catch((error) => {
-      alert(error);
-    });
+      })
+      .then(function (object) {
+        if (object === undefined) {
+          return;
+        }
+
+        if(object.success) {
+          return document.location.replace("/dashboard");
+        }
+        
+        if (object.type === "INVALID_EMAIL") {
+          let instance = tippy(emailInput);
+          instance.setProps({
+            arrow: true,
+            placement: "bottom",
+            content: object.message,
+            trigger: "none",
+            theme: "error",
+          });
+          instance.show();
+        }
+        if (object.type === "INVALID_USER") {
+          let instance = tippy(usernameInput);
+          instance.setProps({
+            arrow: true,
+            placement: "bottom",
+            content: object.message,
+            trigger: "none",
+            theme: "error",
+          });
+          instance.show();
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 }
 

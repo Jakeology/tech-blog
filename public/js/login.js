@@ -17,17 +17,17 @@ async function loginFormHandler(event) {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
-        if (response.ok) {
-          document.location.replace("/dashboard");
-        }
-        if (response.status === 400) {
-          return response.json();
-        }
+        return response.json();
       })
       .then(function (object) {
         if (object === undefined) {
           return;
         }
+
+        if (object.success) {
+          return document.location.replace("/dashboard");
+        }
+
         if (object.type === "INVALID_EMAIL") {
           let instance = tippy(emailInput);
           instance.setProps({

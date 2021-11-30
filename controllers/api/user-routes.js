@@ -56,11 +56,11 @@ router.post("/", (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   User.findOne({ where: { email: req.body.email } }).then((exist) => {
     if (exist) {
-      return res.status(400).json({ type: "INVALID_EMAIL", message: "Email already registered" });
+      return res.json({ success: false, type: "INVALID_EMAIL", message: "Email already registered" });
     } else {
       User.findOne({ where: { username: req.body.username } }).then((exist) => {
         if (exist) {
-          return res.status(400).json({ type: "INVALID_USER", message: "Username already in use" });
+          return res.json({ success: false, type: "INVALID_USER", message: "Username already in use" });
         } else {
           User.create({
             username: req.body.username,
@@ -73,7 +73,7 @@ router.post("/", (req, res) => {
                 req.session.username = dbUserData.username;
                 req.session.loggedIn = true;
 
-                return res.json(dbUserData);
+                return res.json({ success: true, user: dbUserData});
               });
             })
             .catch((err) => {
@@ -93,14 +93,14 @@ router.post("/login", (req, res) => {
     },
   }).then((dbUserData) => {
     if (!dbUserData) {
-      res.status(400).json({ type: "INVALID_EMAIL", message: "No user with that email address" });
+      res.json({ success: false, type: "INVALID_EMAIL", message: "No user with that email address" });
       return;
     }
 
     const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      res.status(400).json({ type: "INVALID_PASS", message: "Incorrect password" });
+      res.json({ success: false, type: "INVALID_PASS", message: "Incorrect password." });
       return;
     }
 
@@ -110,7 +110,7 @@ router.post("/login", (req, res) => {
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
 
-      res.json({ user: dbUserData, message: "You are now logged in" });
+      res.json({ success: true, user: dbUserData, message: "You are now logged in" });
     });
   });
 });
