@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Post, Comment } = require("../../models");
+const { validationResult } = require("express-validator");
 
 // GET /api/users
 router.get("/", (req, res) => {
@@ -53,18 +54,35 @@ router.get("/:id", (req, res) => {
 // POST /api/users
 router.post("/", (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
-  User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-  }).then((dbUserData) => {
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.loggedIn = true;
+  User.findOne({ where: { email: req.body.email } }).then((exist) => {
+    if (exist) {
+      return res.status(400).json({ type: "INVALID_EMAIL", message: "Email already registered" });
+    } else {
+      User.findOne({ where: { username: req.body.username } }).then((exist) => {
+        if (exist) {
+          return res.status(400).json({ type: "INVALID_USER", message: "Username already in use" });
+        } else {
+          User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+          })
+            .then((dbUserData) => {
+              req.session.save(() => {
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
 
-      res.json(dbUserData);
-    });
+                return res.json(dbUserData);
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(500).json(err);
+            });
+        }
+      });
+    }
   });
 });
 
