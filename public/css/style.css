@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Varela Round");
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&display=swap");
 
 :root {
   --primaryColor: #2c335e;
@@ -54,7 +54,7 @@ a {
   padding: 1%;
   color: white;
   font-weight: bold;
-  transition: background-color .1s;
+  transition: background-color 0.1s;
   cursor: pointer;
   border-radius: 5px;
 }
@@ -65,18 +65,20 @@ a {
   padding: 1%;
   color: white;
   font-weight: bold;
-  transition: background-color .1s;
+  transition: background-color 0.1s;
   cursor: pointer;
   border-radius: 5px;
 }
 
-textarea, input {
-  padding: .5%;
+textarea,
+input {
+  padding: 0.5%;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-textarea:focus, input:focus {
+textarea:focus,
+input:focus {
   outline: none;
   border: 1px solid #3486eb;
 }
@@ -135,7 +137,7 @@ form label {
 
 .comment {
   padding: 1%;
-  margin: 1em .5em;
+  margin: 1em 0.5em;
 }
 
 .comment:nth-child(odd) {
@@ -144,8 +146,8 @@ form label {
 
 .comment .meta {
   font-size: 90%;
-  margin-bottom: .5%;
-  opacity: .6;
+  margin-bottom: 0.5%;
+  opacity: 0.6;
 }
 
 .new-post {
@@ -191,6 +193,25 @@ footer {
   font-size: 110%;
   position: absolute;
   bottom: 0;
-  width:100%;
+  width: 100%;
 }
 
+.tippy-box[data-theme~="error"] {
+  background-color: #d44d35;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.tippy-box[data-theme~="error"][data-placement^="top"] > .tippy-arrow::before {
+  border-top-color: #d44d35;
+}
+.tippy-box[data-theme~="error"][data-placement^="bottom"] > .tippy-arrow::before {
+  border-bottom-color: #d44d35;
+}
+.tippy-box[data-theme~="error"][data-placement^="left"] > .tippy-arrow::before {
+  border-left-color: #d44d35;
+}
+.tippy-box[data-theme~="error"][data-placement^="right"] > .tippy-arrow::before {
+  border-right-color: #d44d35;
+}
